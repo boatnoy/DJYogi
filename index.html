@@ -60,35 +60,7 @@
   </div>
 
   <script>
-    // Add the JavaScript code from the previous answer here
-  </script>
-  <script>
-    document.getElementById('music-volume').addEventListener('input', (e) => {
-      setVolume('music', e.target.value / 100);
-    });
-
-    document.getElementById('rain-volume').addEventListener('input', (e) => {
-      setVolume('rain', e.target.value / 100);
-    });
-
-    document.getElementById('thunder-volume').addEventListener('input', (e) => {
-      setVolume('thunder', e.target.value / 100);
-    });
-
-    document.getElementById('bell-volume').addEventListener('input', (e) => {
-      setVolume('bell', e.target.value / 100);
-    });
-
-    document.getElementById('chime-volume').addEventListener('input', (e) => {
-      setVolume('chime', e.target.value / 100);
-    });
- 
-
-    </script>
-</body>
-</html>
-
-let sounds = {
+  let sounds = {
   music: new Audio('music.mp3'),
   rain: new Audio('rain.mp3'),
   thunder: new Audio('thunder.mp3'),
@@ -147,3 +119,31 @@ function startMixer() {
 }
 
 startMixer();
+
+  </script>
+  <script>
+    document.getElementById('music-volume').addEventListener('input', (e) => {
+      setVolume('music', e.target.value / 100);
+    });
+
+    document.getElementById('rain-volume').addEventListener('input', (e) => {
+      setVolume('rain', e.target.value / 100);
+    });
+
+    document.getElementById('thunder-volume').addEventListener('input', (e) => {
+      setVolume('thunder', e.target.value / 100);
+    });
+
+    document.getElementById('bell-volume').addEventListener('input', (e) => {
+      setVolume('bell', e.target.value / 100);
+    });
+
+    document.getElementById('chime-volume').addEventListener('input', (e) => {
+      setVolume('chime', e.target.value / 100);
+    });
+ 
+
+    </script>
+</body>
+</html>
+
