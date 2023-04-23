@@ -12,6 +12,26 @@
       margin: 0;
       font-family: Arial, sans-serif;
     }
+     .mixer {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .sound-control {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .sound-control:last-child {
+      margin-bottom: 0;
+    }
+    .sound-name {
+      flex: 1;
+    }
+    .volume-slider {
+      flex: 2;
+    }
 
     #image-container {
       position: relative;
@@ -50,6 +70,28 @@
   <div id="image-container">
     <div id="blur-layer"></div>
     <p id="dynamic-text">Think big, live simply</p>
+    <div class="mixer">
+    <div class="sound-control">
+      <label for="music-volume" class="sound-name">Music</label>
+      <input type="range" id="music-volume" class="volume-slider" min="0" max="100" value="50">
+    </div>
+    <div class="sound-control">
+      <label for="rain-volume" class="sound-name">Rain</label>
+      <input type="range" id="rain-volume" class="volume-slider" min="0" max="100" value="30">
+    </div>
+    <div class="sound-control">
+      <label for="thunder-volume" class="sound-name">Thunder</label>
+      <input type="range" id="thunder-volume" class="volume-slider" min="0" max="100" value="60">
+    </div>
+    <div class="sound-control">
+      <label for="bell-volume" class="sound-name">Bell</label>
+      <input type="range" id="bell-volume" class="volume-slider" min="0" max="100" value="80">
+    </div>
+    <div class="sound-control">
+      <label for="chime-volume" class="sound-name">Chime</label>
+      <input type="range" id="chime-volume" class="volume-slider" min="0" max="100" value="40">
+    </div>
+  </div>
   </div>
 
   <!-- Include ColorThief JS -->
@@ -85,5 +127,87 @@
       return textColor.toHexString();
     }
   </script>
+  <script>
+  let sounds = {
+  music: new Audio('music.mp3'),
+  rain: new Audio('rain.mp3'),
+  thunder: new Audio('thunder.mp3'),
+  bell: new Audio('bell.mp3'),
+  chime: new Audio('chimes.mp3')
+};
+
+function setVolume(name, volume) {
+  sounds[name].volume = volume;
+}
+
+function playSound(name, interval) {
+  sounds[name].currentTime = 0;
+  sounds[name].play();
+
+  setTimeout(() => {
+    playSound(name, interval);
+  }, interval);
+}
+
+function pauseSound(name) {
+  sounds[name].pause();
+}
+
+function stopSound(name) {
+  sounds[name].pause();
+  sounds[name].currentTime = 0;
+}
+
+function changeSound(name, newFile) {
+  sounds[name].src = newFile;
+}
+
+function setTimer(name, duration) {
+  setTimeout(() => {
+    stopSound(name);
+  }, duration);
+}
+
+function startMixer() {
+  playSound('music', 10000); // Every 10 seconds
+  playSound('rain', 15000); // Every 15 seconds
+  playSound('thunder', 20000); // Every 20 seconds
+  playSound('bell', 25000); // Every 25 seconds
+  playSound('chime', 30000); // Every 30 seconds
+
+  // Change volume (0.0 to 1.0)
+  setVolume('music', 0.5);
+  setVolume('rain', 0.3);
+  setVolume('thunder', 0.6);
+  setVolume('bell', 0.8);
+  setVolume('chime', 0.4);
+
+  // Set timer to stop a sound
+  setTimer('bell', 60000); // Stop after 1 minute
+}
+
+startMixer();
+
+  </script>
+  <script>
+    document.getElementById('music-volume').addEventListener('input', (e) => {
+      setVolume('music', e.target.value / 100);
+    });
+
+    document.getElementById('rain-volume').addEventListener('input', (e) => {
+      setVolume('rain', e.target.value / 100);
+    });
+
+    document.getElementById('thunder-volume').addEventListener('input', (e) => {
+      setVolume('thunder', e.target.value / 100);
+    });
+
+    document.getElementById('bell-volume').addEventListener('input', (e) => {
+      setVolume('bell', e.target.value / 100);
+    });
+
+    document.getElementById('chime-volume').addEventListener('input', (e) => {
+      setVolume('chime', e.target.value / 100);
+    });
 </body>
 </html>
